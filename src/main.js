@@ -6,8 +6,11 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AboutView from './views/AboutView.vue';
 import ArticleAddFormView from './views/ArticleAddFormView.vue';
 import ArticleView from './views/ArticleView.vue';
-import store from "/src/store";
 import ArticlesView from './views/ArticlesView.vue';
+import { createPinia } from 'pinia';
+import { useStore } from './store';
+
+const pinia = createPinia();
 
 const routes = [
     {path: "/", component: AboutView},
@@ -24,7 +27,9 @@ const router = createRouter({
     routes,
 });
 
-const app = createApp(App).use(router);
+const app = createApp(App).use(router).use(pinia);
+const store = useStore();
+store.fetchArticles();
 
 app.component("Button", Button)
 

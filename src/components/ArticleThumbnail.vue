@@ -1,5 +1,4 @@
 <script setup>
-    import store from "/src/store/";
     import { RouterLink } from "vue-router";
 
     const props = defineProps({

@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref, watch, reactive} from 'vue'
+import {computed} from 'vue'
 
 const props = defineProps({
     article: Object,

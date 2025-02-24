@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import store from "/src/store/";
+import { useStore } from "/src/store/";
 
 const router = useRouter();
+const store = useStore();
 
 const formFields = ref({
     name: '',

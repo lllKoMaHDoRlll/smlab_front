@@ -1,38 +1,25 @@
 <script setup>
 import {computed, ref, watch, reactive} from 'vue'
 
-const emit = defineEmits(['update-article'])
-
 const props = defineProps({
-    article: Object
+    article: Object,
+    required: true
 });
 
-const state = reactive({
-    article: props.article
-})
-
-watch(() => state.article, (newArticle) => {
-    emit('update-article', newArticle);
-}, {deep: true})
-
-watch(() => state.article.isPublished, (newStatus) => {
-    console.log("Status was changed: " + newStatus);
-})
-
 const notPublishedCursive = computed(() => {
-    return state.article.isPublished? 'normal' : 'italic'
+    return props.article.isPublished? 'normal' : 'italic'
 })
 const authorNameToUpper = computed(() => {
-    return state.article.author.toUpperCase()
+    return props.article.author.toUpperCase()
 })
 
 const togglePublishedState = () => {
-    state.article.isPublished = !state.article.isPublished;
+    props.article.isPublished = !props.article.isPublished;
 }
 </script>
 
 <template>
-    <div class="article" :class="{'not-published': !state.article.isPublished}">
+    <div class="article" :class="{'not-published': !props.article.isPublished}">
         <div class="article__name">
             <h3>{{ article.name }}</h3>
             <span :style="{'font-style': notPublishedCursive}"> {{ authorNameToUpper }}</span>

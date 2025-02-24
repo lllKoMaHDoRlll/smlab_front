@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import store from "/src/store/";
+
+const router = useRouter();
 
 const formFields = ref({
     name: '',
@@ -8,6 +12,11 @@ const formFields = ref({
     publishDate: '',
     author: ''
 });
+
+const addArticle = () => {
+    store.addArticle({...formFields.value, id: store.articles.length + 1});
+    router.push("/articles");
+}
 
 </script>
 
@@ -33,6 +42,6 @@ const formFields = ref({
         <br/>
         <input type="text" name="author" id="form-author" v-model="formFields.author">
         <br/>
-        <Button @click="$emit('add-article', formFields)">Add article</Button>
+        <Button @click="addArticle">Add article</Button>
     </form>
 </template>

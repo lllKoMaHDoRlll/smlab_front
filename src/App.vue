@@ -1,10 +1,10 @@
 <script setup>
-import ArticlesList from '/src/components/ArticlesList.vue'
+
 </script>
 
 <template>
   <main>
-    <ArticlesList/>
+    <RouterView/>
   </main>
 </template>
 

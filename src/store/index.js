@@ -6,15 +6,13 @@ import { getArticles } from "../services/fetcher";
 export const useStore = defineStore('store', () => {
 
     const articles = ref([]);
-    const isArticlesFetched = ref(false);
+    const fetchArticlesController = ref(null);
     async function fetchArticles() {
-        try {
-            this.articles.push(...(await getArticles()))
-            this.isArticlesFetched = true;
-        } catch (error) {
-            console.error(error);
-            this.isArticlesFetched = false;
-        }
+        if (articles.value.length > 0) return;
+        fetchArticlesController.value = new AbortController();
+        const signal = fetchArticlesController.value.signal;
+        const fetchedArticles = await getArticles(signal);
+        this.articles.push(...fetchedArticles);
     }
     function updateArticle(article) {
         this.articles.value[article.id - 1] = article;
@@ -22,5 +20,5 @@ export const useStore = defineStore('store', () => {
     function addArticle(article) {
         this.articles.push(article);
     }
-    return {articles, isArticlesFetched, fetchArticles, updateArticle, addArticle}
+    return {articles, fetchArticles, updateArticle, addArticle, fetchArticlesController}
 });

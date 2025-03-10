@@ -29,7 +29,6 @@ const router = createRouter({
 
 const app = createApp(App).use(router).use(pinia);
 const store = useStore();
-store.fetchArticles();
 
 app.component("Button", Button)
 

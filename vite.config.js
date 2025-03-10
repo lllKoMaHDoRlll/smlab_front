@@ -7,6 +7,6 @@ import VitePluginVueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   plugins: [
     vue(),
-    // VitePluginVueDevTools()
+    VitePluginVueDevTools()
   ],
 })

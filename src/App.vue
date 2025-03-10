@@ -1,10 +1,14 @@
 <script setup>
-
 </script>
 
 <template>
   <main>
-    <RouterView/>
+    <Suspense>
+      <RouterView/>
+      <template #fallback>
+        <p>Loading</p>
+      </template>
+    </Suspense>
   </main>
 </template>
 

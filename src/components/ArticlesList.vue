@@ -30,8 +30,14 @@ try {
 
 <style scoped>
 .articles-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 2em;
+}
+
+@media screen and (width > 1080px) {
+    .articles-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 </style>

@@ -7,7 +7,8 @@
                 "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                 "isPublished": true,
                 "publishDate": "28.01.25",
-                "author": "John Black"
+                "author": "John Black",
+                "imageURL": "/images/articles/article_1.jpg"
             },
             {
                 "id": 2,
@@ -15,7 +16,8 @@
                 "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                 "isPublished": true,
                 "publishDate": "28.01.25",
-                "author": "John Black"
+                "author": "John Black",
+                "imageURL": "/images/articles/article_2.jpg"
             },
             {
                 "id": 3,
@@ -23,7 +25,8 @@
                 "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                 "isPublished": false,
                 "publishDate": "28.11.25",
-                "author": "John Black"
+                "author": "John Black",
+                "imageURL": "/images/articles/article_3.jpg"
             },
             {
                 "id": 4,
@@ -31,7 +34,8 @@
                 "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
                 "isPublished": true,
                 "publishDate": "28.01.25",
-                "author": "John Black"
+                "author": "John Black",
+                "imageURL": "/images/articles/article_2.jpg"
             }
         ]
 }

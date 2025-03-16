@@ -34,11 +34,6 @@ const abortFetching = () => {
 </template>
 
 <style scoped>
-.articles-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-}
 
 .loading--wrapper {
     display: flex;

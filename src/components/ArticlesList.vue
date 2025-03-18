@@ -3,14 +3,12 @@
 import ArticleThumbnail from '../components/ArticleThumbnail.vue';
 import { useStore } from '../store';
 
-const emit = defineEmits(['fetch-error'])
-console.log(111);
+const emit = defineEmits(['fetch-error']);
 const store = useStore();
 
 
-
 try {
-    await store.fetchArticles();
+    await store.fetchArticlesPromise;
 } catch(e) {
     emit('fetch-error');
     console.log(e);

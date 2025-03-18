@@ -1,8 +1,12 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'; 
+import { useStore } from './store';
 
 const router = useRouter();
+
+const store = useStore();
+store.fetchArticles();
 
 const menuItems = ref([
   {
@@ -79,6 +83,7 @@ main {
   main {
     width: 100%;
     height: 100%;
+    max-height: 100%;
     padding: 2em;
     flex-direction: row;
     justify-content: space-between;
@@ -87,6 +92,12 @@ main {
 
   .content {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
   }
 }
 </style>

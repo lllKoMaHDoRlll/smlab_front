@@ -1,67 +1,62 @@
 <script setup>
-import {computed} from 'vue'
+import { ref } from 'vue';
+import Article from '../components/Article.vue';
+import { Suspense } from 'vue';
 
-const props = defineProps({
-    article: Object,
-    required: true
-});
+import { useStore } from '../store';
 
-const notPublishedCursive = computed(() => {
-    return props.article.isPublished? 'normal' : 'italic'
-})
-const authorNameToUpper = computed(() => {
-    return props.article.author.toUpperCase()
-})
+const store = useStore();
+const fetchError = ref(false);
 
-const togglePublishedState = () => {
-    props.article.isPublished = !props.article.isPublished;
+const handleFetchError = () => {
+    fetchError.value = true;
 }
+
+const abortFetching = () => {
+    store.fetchArticlesController.abort();
+}
+
 </script>
 
 <template>
-    <div class="article" :class="{'not-published': !props.article.isPublished}">
-        <div class="article__name">
-            <h3>{{ article.name }}</h3>
-            <span :style="{'font-style': notPublishedCursive}"> {{ authorNameToUpper }}</span>
-        </div>
-        <div class="article__publish-date">
-            <span>{{ article.publishDate }}</span>
-        </div>
-        <div class="article__body">
-            <p>{{ article.text }}</p>
-        </div>
-        <div class="article__is-published">
-        </div>
-        <Button @click="togglePublishedState">
-            Toggle
-        </Button>
+    <Suspense v-if="!fetchError">
+        <Article #default @fetch-error="handleFetchError()"></Article>
+        <template class="try-fetch-articles" #fallback>
+            <div class="loading--wrapper">
+                <div id="loading"></div>
+                <Button @click="abortFetching()">Cancel fetching</Button>
+            </div>
+        </template>
+    </Suspense>
+    <div v-else>
+        <p>An error was occured during fetching articles!</p>
+        <Button @click="fetchError = false; store.fetchArticles()">Try again</Button>
     </div>
 </template>
 
 <style scoped>
-    .article {
-        border: 3px solid whitesmoke;
-        border-radius: 2em;
+    .loading--wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
     }
 
-    .not-published {
-        border: 3px solid red;
+    #loading {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
     }
 
-    .article__name {
-        text-align: start;
-        margin: .5em 0;
-        padding-left: 2em;
+    @keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
     }
-
-    .article__name > h3 {
-        margin: 0;
-        margin-right: 1em;
-        display: inline;
-    }
-
-    .article__publish-date {
-        text-align: start;
-        padding-left: 2em;
+    @-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
     }
 </style>

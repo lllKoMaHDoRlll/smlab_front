@@ -5,7 +5,6 @@ import { useStore } from '../store';
 
 const store = useStore();
 const fetchError = ref(false);
-const varForReseting = ref(0);
 
 
 const handleFetchError = () => {
@@ -18,7 +17,7 @@ const abortFetching = () => {
 
 <template>
     <h1>Articles</h1>
-    <Suspense :key="varForReseting">
+    <Suspense v-if="!fetchError">
         <ArticlesList #default @fetch-error="handleFetchError()"></ArticlesList>
         <template class="try-fetch-articles" #fallback>
             <div class="loading--wrapper">
@@ -27,9 +26,9 @@ const abortFetching = () => {
             </div>
         </template>
     </Suspense>
-    <div v-if="fetchError">
+    <div v-else>
         <p>An error was occured during fetching articles!</p>
-        <Button @click="varForReseting++;fetchError = false">Try again</Button>
+        <Button @click="fetchError = false;store.fetchArticles()">Try again</Button>
     </div>
 </template>
 

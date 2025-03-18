@@ -36,24 +36,32 @@ const resolver = ref(zodResolver(
     z.object({
         articleName: z.string().min(5, { message: "Username is too short."}).regex(/\w*/),
         articleBody: z.string().min(5, {message: "Body is too short."}),
+        articlePublishState: z.boolean(),
         articlePublishDate: z.date(),
         articleAuthor: z.string().min(5, {message: "Author name is too short."})
     })
 ))
 
-const onFormSubmit = ({ valid }) => {
-    console.log(valid);
-    if (valid) {
-
-        store.addArticle({...formFields.value, id: store.articles.length + 1});
+const onFormSubmit = (event) => {
+    if (event.valid) {
+        store.addArticle({
+            id: store.articles.length + 1,
+            name: event.values.articleName,
+            text: event.values.articleBody,
+            imageURL: "/images/articles/article_2.jpg",
+            isPublished: event.values.articlePublishState,
+            publishDate: event.values.articlePublishDate,
+            author: event.values.articleAuthor
+        });
         router.push("/articles");
+        console.log(store.articles);
     }
 };
 
 </script>
 
 <template>
-    <Form v-slot="$form" :initialValues :resolver @submit="onFormSubmit" class="flex flex-col gap-4 w-full sm:w-56">
+    <Form v-slot="$form" :initialValues :resolver @submit="onFormSubmit" class="form">
         <div style="display: flex; flex-direction: column; gap: 1.5em;">
             <FloatLabel>
                 <InputText name="articleName" type="text"/>
@@ -66,13 +74,13 @@ const onFormSubmit = ({ valid }) => {
                 <label for="articleBody">Body</label>
             </FloatLabel>
             <Message v-if="$form.articleBody?.invalid" severity="error" size="small" variant="simple">{{ $form.articleBody.error?.message }}</Message>
-            <div class="flex items-center gap-2">
-                <Checkbox name="articlePublishState" value="true"/>
+            <div>
+                <Checkbox name="articlePublishState" binary/>
                 <label for="articlePublishState"> Do publish </label>
             </div>
 
             <FloatLabel>
-                <DatePicker name="articlePublishDate" fluid/>
+                <DatePicker name="articlePublishDate" fluid dateFormat="dd.mm.y"/>
                 <label for="articlePublishDate">Publish date</label>
             </FloatLabel>
             <Message v-if="$form.articlePublishDate?.invalid" severity="error" size="small" variant="simple">{{ $form.articlePublishDate.error?.message }}</Message>
@@ -110,3 +118,10 @@ const onFormSubmit = ({ valid }) => {
         <Button @click="addArticle">Add article</Button>
     </form> -->
 </template>
+
+<style scoped>
+.form {
+    max-width: 200px;
+    margin: 0 auto;
+}
+</style>

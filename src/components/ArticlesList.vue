@@ -30,6 +30,7 @@ try {
 
 <style scoped>
 .articles-list {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     gap: 2em;

@@ -49,7 +49,7 @@
 <template>    
     <Toast />
     <ConfirmDialog></ConfirmDialog>
-    <Card :class="{'not-published': !article.isPublished}" style="width: 25rem; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden">
+    <Card :class="{'not-published': !article.isPublished}" style="display: flex; flex-direction: column; justify-content: space-between; overflow: hidden">
         <template #header>
             <Image alt="user header" imageStyle="object-fit: contain; width: 100%;" :src="article.imageURL" preview/>
         </template>

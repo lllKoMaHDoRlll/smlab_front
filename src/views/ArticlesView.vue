@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import ArticlesList from '../components/ArticlesList.vue';
 import { useStore } from '../store';
+import locale from '../locales/locales';
 
 const store = useStore();
 const fetchError = ref(false);
@@ -16,19 +17,19 @@ const abortFetching = () => {
 </script>
 
 <template>
-    <h1>Articles</h1>
+    <h1>{{ locale.article.articles }}</h1>
     <Suspense v-if="!fetchError">
         <ArticlesList #default @fetch-error="handleFetchError()"></ArticlesList>
         <template class="try-fetch-articles" #fallback>
             <div class="loading--wrapper">
                 <div id="loading"></div>
-                <Button @click="abortFetching()">Cancel fetching</Button>
+                <Button @click="abortFetching()">{{ locale.fetch.cancel }}</Button>
             </div>
         </template>
     </Suspense>
     <div v-else>
-        <p>An error was occured during fetching articles!</p>
-        <Button @click="fetchError = false;store.fetchArticles()">Try again</Button>
+        <p>{{ locale.fetch.error }}</p>
+        <Button @click="fetchError = false;store.fetchArticles()">{{ locale.fetch.tryAgain }}</Button>
     </div>
 </template>
 

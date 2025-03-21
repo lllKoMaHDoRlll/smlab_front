@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'; 
 import { useStore } from './store';
+import locale from './locales/locales';
 
 const router = useRouter();
 
@@ -10,17 +11,17 @@ store.fetchArticles();
 
 const menuItems = ref([
   {
-    label: 'Articles',
+    label: locale.menu.articles,
     items: [
       {
-        label: 'List',
+        label: locale.menu.list,
         icon: 'pi pi-plus',
         command: () => {
           router.push("/articles");
         }
       },
       {
-        label: 'New',
+        label: locale.menu.new,
         icon: 'pi pi-plus',
         command: () => {
           router.push("/articles/new");
@@ -29,24 +30,24 @@ const menuItems = ref([
     ]
   },
   {
-    label: 'Other',
+    label: locale.menu.other,
     items: [
       {
-        label: 'Carousel',
+        label: locale.menu.carousel,
         icon: 'pi pi-plus',
         command: () => {
           router.push("/carousel");
         }
       },
       {
-        label: 'Table',
+        label: locale.menu.table,
         icon: 'pi pi-plus',
         command: () => {
           router.push("/table");
         }
       },
       {
-        label: 'List',
+        label: locale.menu.list,
         icon: 'pi pi-plus',
         command: () => {
           router.push("/list");

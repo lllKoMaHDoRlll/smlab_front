@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import Article from '../components/Article.vue';
-import { Suspense } from 'vue';
+import locale from '../locales/locales';
 
 import { useStore } from '../store';
 
@@ -24,13 +24,13 @@ const abortFetching = () => {
         <template class="try-fetch-articles" #fallback>
             <div class="loading--wrapper">
                 <div id="loading"></div>
-                <Button @click="abortFetching()">Cancel fetching</Button>
+                <Button @click="abortFetching()">{{ locale.fetch.cancel }}</Button>
             </div>
         </template>
     </Suspense>
     <div v-else>
-        <p>An error was occured during fetching articles!</p>
-        <Button @click="fetchError = false; store.fetchArticles()">Try again</Button>
+        <p>{{ locale.fetch.error }}</p>
+        <Button @click="fetchError = false; store.fetchArticles()">{{ locale.fetch.tryAgain }}</Button>
     </div>
 </template>
 

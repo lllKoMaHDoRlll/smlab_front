@@ -1,8 +1,14 @@
+<script setup>
+import locale from '../locales/locales';
+
+
+</script>
+
 <template>
-    <h1>About us</h1>
+    <h1>{{ locale.aboutUs.aboutUs }}</h1>
     <div class="links">
-        <RouterLink to="/articles/">Articles</RouterLink>
-        <RouterLink to="/articles/new/">Add new article</RouterLink>
+        <RouterLink to="/articles/">{{ locale.aboutUs.articles }}</RouterLink>
+        <RouterLink to="/articles/new/">{{ locale.aboutUs.addNewArticle }}</RouterLink>
     </div>
 </template>
 

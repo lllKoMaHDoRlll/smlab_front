@@ -1,7 +1,7 @@
 <script setup>
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import ColumnGroup from 'primevue/columngroup';
+import locale from '../locales/locales';
 
 const items = [
     {
@@ -46,10 +46,10 @@ const items = [
 <template>
     <div class="card">
         <DataTable :value="items" tableStyle="min-width: 50rem">
-            <Column field="code" header="Code"></Column>
-            <Column field="name" header="Name"></Column>
-            <Column field="category" header="Category"></Column>
-            <Column field="quantity" header="Quantity"></Column>
+            <Column field="code" :header="locale.table.code"></Column>
+            <Column field="name" :header="locale.table.name"></Column>
+            <Column field="category" :header="locale.table.category"></Column>
+            <Column field="quantity" :header="locale.table.quantity"></Column>
         </DataTable>
     </div>
 </template>

@@ -2,6 +2,7 @@
 import {computed, ref} from 'vue';
 import { useStore } from '../store';
 import { useRoute } from 'vue-router';
+import locale from '../locales/locales';
 
 const emit = defineEmits(['fetch-error']);
 
@@ -44,7 +45,7 @@ const article = store.articles.find((val) => val.id == route.params.id);
         <div class="article__is-published">
         </div>
         <Button @click="togglePublishedState">
-            Toggle
+            {{ locale.article.togglePublishState }}
         </Button>
     </div>
 </template>

@@ -4,6 +4,7 @@
 
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from 'primevue/usetoast';
+import locale from "../locales/locales";
 
     const toast = useToast();
     
@@ -20,20 +21,20 @@
 
     const togglePublishedState = () => {
         confirm.require({
-            message: 'Are you sure you want to toggle publish state?',
-            header: 'Confirmation',
+            message: locale.article.togglePublishStateConfirm,
+            header: locale.article.confirmTitle,
             icon: 'pi pi-exclamation-triangle',
             rejectProps: {
-                label: 'Cancel',
+                label: locale.article.cancel,
                 severity: 'secondary',
                 outlined: true
             },
             acceptProps: {
-                label: 'Yes'
+                label: locale.article.yes
             },
             accept: () => {
                 props.article.isPublished = !props.article.isPublished;
-                toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+                toast.add({ severity: 'info', summary: locale.article.confirmed, detail: locale.article.acceptedMessage, life: 3000 });
                 confirm.close();
             },
             reject: () => {
@@ -62,9 +63,9 @@
         </template>
         <template #footer>
             <div style="display: flex; justify-content: space-around; gap: 1em;">
-                <Button label="Toggle" @click="togglePublishedState" severity="secondary" outlined style="width: 100%;"/>
+                <Button :label="locale.article.togglePublishState" @click="togglePublishedState" severity="secondary" outlined style="width: 100%;"/>
                 <RouterLink :to="'/articles/' + article.id" style="width: 100%;">
-                    <Button label="See full" style="width: 100%;"/>
+                    <Button :label="locale.article.seeFull" style="width: 100%;"/>
                 </RouterLink>
             </div>
         </template>

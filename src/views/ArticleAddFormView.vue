@@ -12,6 +12,7 @@ import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
 import FloatLabel from 'primevue/floatlabel';
 import Message from 'primevue/message';
+import locale from '../locales/locales';
 
 const router = useRouter();
 const store = useStore();
@@ -34,11 +35,11 @@ const initialValues = reactive({
 
 const resolver = ref(zodResolver(
     z.object({
-        articleName: z.string().min(5, { message: "Username is too short."}).regex(/\w*/),
-        articleBody: z.string().min(5, {message: "Body is too short."}),
+        articleName: z.string().min(5, { message: locale.articleAddForm.validationError.titleShort}).regex(/\w*/),
+        articleBody: z.string().min(5, {message: locale.articleAddForm.validationError.bodyShort}),
         articlePublishState: z.boolean(),
         articlePublishDate: z.date(),
-        articleAuthor: z.string().min(5, {message: "Author name is too short."})
+        articleAuthor: z.string().min(5, {message: locale.articleAddForm.validationError.authorNameShort})
     })
 ))
 
@@ -65,58 +66,35 @@ const onFormSubmit = (event) => {
         <div style="display: flex; flex-direction: column; gap: 1.5em;">
             <FloatLabel>
                 <InputText name="articleName" type="text"/>
-                <label for="articleName">Title</label>
+                <label for="articleName">{{ locale.articleAddForm.fields.title }}</label>
             </FloatLabel>
             <Message v-if="$form.articleName?.invalid" severity="error" size="small" variant="simple">{{ $form.articleName.error?.message }}</Message>
             
             <FloatLabel>
                 <Textarea name="articleBody" type="text"/>
-                <label for="articleBody">Body</label>
+                <label for="articleBody">{{ locale.articleAddForm.fields.body }}</label>
             </FloatLabel>
             <Message v-if="$form.articleBody?.invalid" severity="error" size="small" variant="simple">{{ $form.articleBody.error?.message }}</Message>
             <div>
                 <Checkbox name="articlePublishState" binary/>
-                <label for="articlePublishState"> Do publish </label>
+                <label for="articlePublishState">{{ locale.articleAddForm.fields.doPublish }}</label>
             </div>
 
             <FloatLabel>
                 <DatePicker name="articlePublishDate" fluid dateFormat="dd.mm.y"/>
-                <label for="articlePublishDate">Publish date</label>
+                <label for="articlePublishDate">{{ locale.articleAddForm.fields.publishDate }}</label>
             </FloatLabel>
             <Message v-if="$form.articlePublishDate?.invalid" severity="error" size="small" variant="simple">{{ $form.articlePublishDate.error?.message }}</Message>
 
             <FloatLabel>
                 <InputText name="articleAuthor" type="text"/>
-                <label for="articleAuthor">Author</label>
+                <label for="articleAuthor">{{ locale.articleAddForm.fields.author }}</label>
             </FloatLabel>
             <Message v-if="$form.articleAuthor?.invalid" severity="error" size="small" variant="simple">{{ $form.articleAuthor.error?.message }}</Message>
             
         </div>
-        <Button type="submit" severity="secondary" label="Submit" />
+        <Button type="submit" severity="secondary" :label="locale.articleAddForm.fields.submit" />
     </Form>
-    <!-- <form @submit.prevent>
-        <label for="name">Name</label>
-        <br/>
-        <input type="text" name="name" id="form-name" v-model="formFields.name">
-        <br/>
-        <label for="text">Text</label>
-        <br/>
-        <input type="text" name="text" id="form-text" v-model="formFields.text">
-        <br/>
-        <label for="is-published">Publish</label>
-        <br/>
-        <input type="checkbox" name="is-published" id="form-is-published" v-model="formFields.isPublished">
-        <br/>
-        <label for="publish-date">Publish date</label>
-        <br/>
-        <input type="date" name="publish-date" id="form-publish-date" v-model="formFields.publishDate">
-        <br/>
-        <label for="author">Author</label>
-        <br/>
-        <input type="text" name="author" id="form-author" v-model="formFields.author">
-        <br/>
-        <Button @click="addArticle">Add article</Button>
-    </form> -->
 </template>
 
 <style scoped>
